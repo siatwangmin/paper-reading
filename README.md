@@ -7,11 +7,13 @@ VAPO+DAPO+GSPO+GiGPO
 ## Agentic AI
 ## Claude Survey
 - [ ] Claude SDK Survey
+      [Building agents with the Claude Agent SDK](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)
+      Claude Code SDK -> Claude Agent SDK 
 - [ ] Claude Tutorial
 ## Context Engineer
 - [ ] Manus
 ## VibeCoding
-### A Survey of Vibe Coding with Large Language Models
+### [A Survey of Vibe Coding with Large Language Models](https://arxiv.org/abs/2510.12399v1)
 #### Q1 论文试图解决什么问题？论文旨在解决Vibe Coding（氛围编码）范式的研究缺口与实践挑战，具体包括：
 有效性未充分探索：Vibe Coding 作为 LLM 催生的新型开发方法（开发者通过 “结果观察” 而非 “逐行代码理解” 验证 AI 生成实现），其变革潜力虽被认可，但有效性缺乏系统性研究；
 实践痛点待解决：实证显示该范式存在 “意外生产力损失” 及 “人机协作基础挑战”，尚未有解决方案；
@@ -51,7 +53,6 @@ VAPO+DAPO+GSPO+GiGPO
 实证量化研究：基于论文提出的分类法，设计对照实验，量化比较 5 类开发模型在不同场景下的效率、代码质量、开发者体验；
 边缘场景适配：探索 Vibe Coding 在特殊领域（如嵌入式开发、安全敏感代码）的适用性，解决现有模型在复杂场景下的局限性。
 #### 重点问题分析了解：
-1. 
 CMDP 形式化框架中，三大核心角色的定位与互动逻辑明确：
 
 | 角色       | 在 CMDP 中的功能                                             | 与其他角色的交互方式                           |
@@ -59,4 +60,15 @@ CMDP 形式化框架中，三大核心角色的定位与互动逻辑明确：
 | 人类开发者 | 1. 设定 “约束条件”（如需求、规范）；2. 提供 “反馈信号”（如验收 / 拒绝代码，对应 CMDP 的 “奖励 / 惩罚”）；3. 触发 “状态重置”（如需求变更） | 向编码智能体输出反馈，向软件项目输入初始需求   |
 | 编码智能体 | 1. 执行 “动作”（如生成函数、修复 bug，对应 CMDP 的 “动作空间 A”）；2. 基于当前 “项目状态” 和 “开发者反馈” 调整策略 | 读取项目状态，接收开发者反馈，输出代码修改动作 |
 | 软件项目   | 承载 “状态信息”（对应 CMDP 的 “状态空间 S”），包括：- 静态信息（需求文档、代码库）；- 动态信息（测试结果、待修复 bug） | 被智能体修改状态，向开发者展示当前进度         |
-
+#### LLM-Based Coding Agent
+1. 分解和规划
+2. 记忆机制
+3. 动作执行
+4. 反思
+5. Agent协作
+#### 开发环境
+1. 队里执行的运行时环境
+2. 交互式开发接口环境
+3. 分布之协作平台环境
+### 开发原则
+无约束自动化模型（UAM）、迭代对话协作模型（ICCM）、规划驱动模型（PDM）、测试驱动模型（TDM）和上下文增强模型（CEM），其中前四个代表不同的工作流程，而第五个作为水平增强能力，可以灵活地与任何前面的四个模型。
