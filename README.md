@@ -86,7 +86,7 @@ Skills运行视图
 2. 案例[Recipe](https://github.com/anthropics/claude-cookbooks/tree/main/skills)
 - [ ] Claude Tutorial
 ## Context Engineer
-- [ ] Manus
+- [ ] Manus  [Context Engineering for AI Agents with LangChain and Manus](https://www.youtube.com/watch?app=desktop&v=6_BcCthVvb8)
 ## VibeCoding
 ### [A Survey of Vibe Coding with Large Language Models](https://arxiv.org/abs/2510.12399v1)
 #### Q1 论文试图解决什么问题？论文旨在解决Vibe Coding（氛围编码）范式的研究缺口与实践挑战，具体包括：
