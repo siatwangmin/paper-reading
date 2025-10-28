@@ -43,6 +43,42 @@ async for message in query(
 print()
 ```
 
+### [Claude Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
+#### Why
+代理变得越来越强大，我们需要更多可组合、可扩展和可移植的方式来为它们配备特定领域的专业知识。
+#### What
+Agent Skills: organized folders of instructions, scripts, and resources that agents can discover and load dynamically to perform better at specific tasks. Skills extend Claude’s capabilities by packaging your expertise into composable resources for Claude, transforming general-purpose agents into specialized agents that fit your needs.
+
+Agent Skills ：代理可以动态发现和加载的指令、脚本和资源的组织文件夹，以更好地执行特定任务, Agent Skills通过将您的专业知识打包到 Claude 的可组合资源中来扩展 Claude 的能力，将通用代理转变为适合您需求的专业代理。
+#### How
+#### 框架：
+技能是一个包含 SKILL.md 文件的目录，该文件包含指令、脚本和资源的组织文件夹，这些文件夹为代理提供了额外的功能。
+![ddd7e6e572ad0b6a943cacefe957248455f6d522-1650x929](https://github.com/user-attachments/assets/269bde74-7473-48b4-bf8b-fb3c4a27e370)
+#### 案例剖析
+简单案例：required metadata: name and description
+![6f22d8913dbc6228e7f11a41e0b3c124d817b6d2-1650x929](https://github.com/user-attachments/assets/14b48fe7-1a3d-4710-a341-6d6f9faae229)
+
+复杂情况：
+
+随着技能的复杂性增加，它们可能包含太多上下文而无法适应单个 SKILL.md，或者仅与特定方案相关的上下文。在这些情况下，技能可以在技能目录中捆绑其他文件，并从 SKILL.md 按名称引用它们。这些额外的链接文件是第三级 （及更高）的细节，Claude 可以选择仅在需要时导航和发现。在下面显示的 PDF 技能中，SKILL.md 是指技能作者选择与核心 SKILL.md 捆绑在一起的两个附加文件（reference.md 和 forms.md）。通过将表单填写说明移动到单独的文件 （forms.md） 中，技能作者能够保持技能的核心精简，相信 Claude 只有在填写表单时才会阅读 forms.md。
+![191bf5dd4b6f8cfe6f1ebafe6243dd1641ed231c-1650x1069](https://github.com/user-attachments/assets/5993aebc-3ee9-4a7f-8d86-f575fceedf63)
+
+加载的窗口大小对比
+![a3bca2763d7892982a59c28aa4df7993aaae55ae-2292x673](https://github.com/user-attachments/assets/eb8e4d57-586f-485e-b22b-70b7cc8fbdd5)
+
+Skills运行视图
+![441b9f6cc0d2337913c1f41b05357f16f51f702e-1650x929](https://github.com/user-attachments/assets/1e10e15b-776d-4940-95a0-86044dde557d)
+
+#### Skills可以包含代码
+![c24b4a2ff77277c430f2c9ef1541101766ae5714-1650x929](https://github.com/user-attachments/assets/9c0281a5-5593-4a36-8278-ad9e03b3b167)
+
+
+#### Best Practice
+1. **Start with evaluation**: 评估发现模型缺少什么技能， 然后构建它， 评估先行， **No Evaluation, No Work. ** Identify specific gaps in your agents’ capabilities by running them on representative tasks and observing where they struggle or require additional context. Then build skills incrementally to address these shortcomings.
+2. **Structure for scale:** When the SKILL.md file becomes unwieldy, split its content into separate files and reference them. If certain contexts are mutually exclusive or rarely used together, keeping the paths separate will reduce the token usage. Finally, code can serve as both executable tools and as documentation. It should be clear whether Claude should run scripts directly or read them into context as reference.
+3. **Think from Claude’s perspective**: 简单来说就是看调用轨迹，看是否合理Monitor how Claude uses your skill in real scenarios and iterate based on observations: watch for unexpected trajectories or overreliance on certain contexts. Pay special attention to the name and description of your skill. Claude will use these when deciding whether to trigger the skill in response to its current task.
+4. **Iterate with Claude**: 和模型一起迭代， 不要乱猜， 让模型告诉你答案，为什么他做对了或者为什么他做错了， 比较像我们用Thinking做debugging。 As you work on a task with Claude, ask Claude to capture its successful approaches and common mistakes into reusable context and code within a skill. If it goes off track when using a skill to complete a task, ask it to self-reflect on what went wrong. This process will help you discover what context Claude actually needs, instead of trying to anticipate it upfront.
+
 - [ ] Claude Tutorial
 ## Context Engineer
 - [ ] Manus
