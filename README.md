@@ -79,6 +79,11 @@ Skills运行视图
 3. **Think from Claude’s perspective**: 简单来说就是看调用轨迹，看是否合理Monitor how Claude uses your skill in real scenarios and iterate based on observations: watch for unexpected trajectories or overreliance on certain contexts. Pay special attention to the name and description of your skill. Claude will use these when deciding whether to trigger the skill in response to its current task.
 4. **Iterate with Claude**: 和模型一起迭代， 不要乱猜， 让模型告诉你答案，为什么他做对了或者为什么他做错了， 比较像我们用Thinking做debugging。 As you work on a task with Claude, ask Claude to capture its successful approaches and common mistakes into reusable context and code within a skill. If it goes off track when using a skill to complete a task, ask it to self-reflect on what went wrong. This process will help you discover what context Claude actually needs, instead of trying to anticipate it upfront.
 
+#### 未来期望
+**代理自己创建Skills。we hope to enable agents to create, edit, and evaluate Skills on their own, letting them codify their own patterns of behavior into reusable capabilities.**
+#### 参考资料：
+1. 文档[Agent Skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview)
+2. 案例[Recipe](https://github.com/anthropics/claude-cookbooks/tree/main/skills)
 - [ ] Claude Tutorial
 ## Context Engineer
 - [ ] Manus
