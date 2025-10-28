@@ -6,9 +6,43 @@
 VAPO+DAPO+GSPO+GiGPO
 ## Agentic AI
 ## Claude Survey
-- [ ] Claude SDK Survey
-      [Building agents with the Claude Agent SDK](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)
-      Claude Code SDK -> Claude Agent SDK 
+### Claude Agent SDK
+[Building agents with the Claude Agent SDK](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)
+就是将原来的Claude Code SDK改名为了Claude Agent SDK
+Claude Code SDK -> Claude Agent SDK
+Claude Agent SDK可以用来构建不同的通用Agent
+
+Coder Reviwer Agent案例如下：
+```
+"""Example using a custom code reviewer agent."""
+print("=== Code Reviewer Agent Example ===")
+
+options = ClaudeAgentOptions(
+  agents={
+      "code-reviewer": AgentDefinition(
+          description="Reviews code for best practices and potential issues",
+          prompt="You are a code reviewer. Analyze code for bugs, performance issues, "
+          "security vulnerabilities, and adherence to best practices. "
+          "Provide constructive feedback.",
+          tools=["Read", "Grep"],
+          model="sonnet",
+      ),
+  },
+)
+
+async for message in query(
+  prompt="Use the code-reviewer agent to review the code in src/claude_agent_sdk/types.py",
+  options=options,
+):
+  if isinstance(message, AssistantMessage):
+      for block in message.content:
+          if isinstance(block, TextBlock):
+              print(f"Claude: {block.text}")
+  elif isinstance(message, ResultMessage) and message.total_cost_usd and message.total_cost_usd > 0:
+      print(f"\nCost: ${message.total_cost_usd:.4f}")
+print()
+```
+
 - [ ] Claude Tutorial
 ## Context Engineer
 - [ ] Manus
