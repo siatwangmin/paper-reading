@@ -87,6 +87,69 @@ Skills运行视图
 - [ ] Claude Tutorial
 ## Context Engineer
 - [ ] Manus  [Context Engineering for AI Agents with LangChain and Manus](https://www.youtube.com/watch?app=desktop&v=6_BcCthVvb8)
+## Agentic AI
+### VeRL
+### GiGPO
+### VerlTool: Towards Holistic Agentic Reinforcement Learning with Tool Use
+
+
+
+#### Q1 论文试图解决什么问题？
+论文主要针对两类强化学习相关方法的局限性，以及现有工具增强型智能体强化学习的痛点展开解决，具体包括：
+1. **RLVR（带可验证奖励的强化学习）的局限**：RLVR 虽能提升大语言模型（LLM）的推理能力，但仅支持单轮交互，且未集成工具使用，无法应对复杂多轮任务。
+2. **现有 ARLT（带工具使用的智能体强化学习）的缺陷**：近年 ARLT 方法虽能处理多轮工具交互，但采用任务特定代码库，存在三大核心问题 —— 碎片化（不同任务需独立开发代码）、同步执行瓶颈（执行效率低）、跨领域可扩展性有限；这些问题阻碍了社区广泛采用和算法创新。
+#### Q3 这篇文章要验证一个什么科学假设？
+文章旨在验证的核心科学假设为：通过 “上游与 VeRL 对齐、统一工具管理、异步执行优化、模块化插件架构” 的系统性设计，能够构建一个统一、高效、可扩展的 ARLT 框架（即 VerlTool） ；该框架不仅能突破单轮 RLVR 的局限，支持多轮多模态（文本 / 图像 / 视频）交互，还能在多个 ARLT 领域达到与专用系统相当的性能，同时降低工具集成的开发开销，为工具增强型 RL 研究提供通用基础设施。
+#### Q5 论文中提到的解决方案之关键是什么？
+VerlTool 框架的解决方案关键在于四大核心设计，对应四大核心贡献：
+1. 上游与 VeRL 对齐：确保与现有 RLVR 技术的兼容性，简化框架维护（无需从零开发可验证奖励相关模块）；
+2. 统一工具管理：通过标准化 API支持多模态工具（包括代码执行、搜索、SQL 数据库、视觉处理等），打破任务间的工具壁垒；
+3. 异步 Rollout 执行：消除同步执行瓶颈，实现近 2 倍的速度提升，解决 ARLT 的效率问题；
+4. 模块化插件架构：工具集成仅需轻量级 Python 定义，大幅降低开发开销，提升框架的可扩展性。
+#### Q9 这篇论文到底有什么贡献？
+论文的贡献可分为 “技术设计贡献”“范式扩展贡献”“社区支持贡献” 三类，具体包括：
+技术设计贡献：提出 VerlTool 统一模块化框架，通过四大核心设计（VeRL 对齐、统一工具 API、异步执行、模块化插件）解决现有 ARLT 的碎片化、效率低、可扩展性差问题；
+范式扩展贡献：将 ARLT 形式化为 “多轮轨迹 + 多模态观察 token（文本 / 图像 / 视频）”，突破了单轮 RLVR 的范式局限，丰富了 ARLT 的任务覆盖范围；
+性能验证贡献：在 6 个 ARLT 领域（数学推理、知识 QA 等）验证了框架性能，证明统一框架可媲美专用系统；
+社区支持贡献：提供统一训练基础设施，降低工具集成开发开销，且开源代码，为工具增强型 RL 研究提供可扩展基础，促进社区创新。
+### GRPO_ARLT
+观测 token（o_j）是工具返回的外部信息，与当前优化的 LLM 策略 π_θ 是 “off-policy”（即 o_j 不由当前 π_θ 生成，而是工具的输出），若纳入损失计算会破坏策略优化的一致性，导致训练震荡。因此 GRPO-ARLT 仅优化智能体自主生成的动作 token（a_j）。
+
+
+## 1. 原始 GRPO 目标函数
+原始 GRPO（Generalized Relative Policy Optimization）损失用于**单轮无工具交互**的强化学习场景，公式定义如下：
+$$
+J_{\text{GRPO}}(\theta) = \frac{1}{G} \sum_{i=1}^{G} \frac{1}{|\tau_i|} \sum_{t=1}^{|\tau_i|} \min\left[ r_{i,t}(\theta) \cdot \hat{A}_{i,t},\ \text{clip}\left(r_{i,t}(\theta),\ 1-\epsilon,\ 1+\epsilon\right) \cdot \hat{A}_{i,t} \right] \tag{3}
+$$
+其中各符号含义：
+- $G$：用于训练的轨迹（rollout）总数；
+- $\tau_i$：第 $i$ 条单轮轨迹（仅包含智能体生成的动作 token）；
+- $|\tau_i|$：第 $i$ 条轨迹的 token 总数；
+- $r_{i,t}(\theta)$：第 $i$ 条轨迹第 $t$ 个 token 的**token级重要性比率**（公式4定义）；
+- $\hat{A}_{i,t}$：第 $i$ 条轨迹第 $t$ 个 token 的**归一化优势值**（公式4定义）；
+- $\epsilon$：clip 函数的截断阈值（通常取0.1，控制重要性比率的波动范围）；
+- $\text{clip}(x, a, b)$：截断函数，将 $x$ 限制在 $[a, b]$ 区间内。
+
+## 3. GRPO-ARLT 目标函数
+GRPO-ARLT 是适配**多轮工具交互（ARLT）** 的改进版损失，核心优化是“mask 工具返回的观测 token”以避免训练不稳定，公式定义如下：
+
+$$
+J_{\text{GRPO-ARLT}}(\theta) = \frac{1}{G} \sum_{i=1}^{G} \frac{1}{\sum_{j=0}^{n} |a_j|} \sum_{j=0}^{n} \sum_{t=T_j}^{T_j + |a_j|} \min\left[ r_{i,t}(\theta) \cdot \hat{A}_{i,t},\ \text{clip}\left(r_{i,t}(\theta),\ 1-\epsilon,\ 1+\epsilon\right) \cdot \hat{A}_{i,t} \right] \tag{5}
+$$
+
+其中各符号含义（新增/差异部分）：
+- $n$：单条多轮轨迹的**工具交互步数**；
+- $a_j$：第 $j$ 个“动作片段”（仅包含智能体生成的动作 token，如工具调用指令、最终回答）；
+- $|a_j|$：第 $j$ 个动作片段的 token 总数；
+- $T_j$：第 $j$ 个动作片段在完整轨迹中的**起始 token 索引**（用于定位动作片段位置）；
+- $\sum_{j=0}^{n} |a_j|$：单条多轮轨迹中“所有动作片段的 token 总数”（排除工具返回的观测 token $o_j$）；
+- $o_j$：第 $j$ 次工具调用返回的**观测 token**（因与当前策略 $\pi_\theta$ 无关，被 mask 不参与损失计算）。
+#### 工作评价：
+1. 缺点：没有考虑环境+奖励如何协同工作
+2. 没想明白为什么不用MCP来做这个？而要做一个新的工具接入方式。MCP主要是通过server接入API的形式， 很多简单的如search, bash , coder应该更加的elegant?
+3. 思考：能否借鉴用这种方式做环境
+
+
 ## VibeCoding
 ### [A Survey of Vibe Coding with Large Language Models](https://arxiv.org/abs/2510.12399v1)
 #### Q1 论文试图解决什么问题？论文旨在解决Vibe Coding（氛围编码）范式的研究缺口与实践挑战，具体包括：
