@@ -3,8 +3,10 @@
 
 ## Tesla ICCV World Model
 ## RL Optimizer
-VAPO+DAPO+GSPO+GiGPO
+VAPO+DAPO+GSPO+GiGPO+BAPO
+### [BAPO: Stabilizing Off-Policy Reinforcement Learning for LLMs via Balanced Policy Optimization with Adaptive Clipping](https://arxiv.org/abs/2510.18927)
 ## Agentic AI
+Andrew NG
 ## Claude Survey
 ### Claude Agent SDK
 [Building agents with the Claude Agent SDK](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)
