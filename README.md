@@ -1,5 +1,20 @@
 # paper-reading
 ## ToDo List
+- [ ] Tesla ICCV World Model
+- [ ] 胃镜胶囊
+- [ ] RL Optimizer
+- [ ] RL Survey
+- [ ] RL Framework(GiGPO+VerlTool+Retool+Verlog)
+- [ ] Agentic AI
+- [ ] ToolBench
+- [ ] Context Engineer
+- [ ] Foundation of Foundation Model
+- [ ] 大模型+Agent评测
+
+## Foundation of Foundation Model
+1. 什么是Tokeninzer
+2. 大模型工作原理
+3. nano-chat Andrew Karparthy
 
 ## Tesla ICCV World Model
 ## RL Optimizer
