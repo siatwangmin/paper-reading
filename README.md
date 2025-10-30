@@ -4,12 +4,16 @@
 - [ ] 胃镜胶囊
 - [ ] RL Optimizer
 - [ ] RL Survey
-- [ ] RL Framework(GiGPO+VerlTool+Retool+Verlog)
+- [ ] RL Framework(Verl+GiGPO+VerlTool+Retool+Verlog+Roll)
 - [ ] Agentic AI
 - [ ] ToolBench
 - [ ] Context Engineer
 - [ ] Foundation of Foundation Model
 - [ ] 大模型+Agent评测
+- [ ] AI Trading
+
+## AI trading
+1. [Alpah Arena](https://nof1.ai/)
 
 ## Foundation of Foundation Model
 1. 什么是Tokeninzer
@@ -126,10 +130,11 @@ Skills运行视图
 ## Agentic AI
 ### VeRL
 ### GiGPO
+### VerlLog
+
+
+
 ### VerlTool: Towards Holistic Agentic Reinforcement Learning with Tool Use
-
-
-
 #### Q1 论文试图解决什么问题？
 论文主要针对两类强化学习相关方法的局限性，以及现有工具增强型智能体强化学习的痛点展开解决，具体包括：
 1. **RLVR（带可验证奖励的强化学习）的局限**：RLVR 虽能提升大语言模型（LLM）的推理能力，但仅支持单轮交互，且未集成工具使用，无法应对复杂多轮任务。
